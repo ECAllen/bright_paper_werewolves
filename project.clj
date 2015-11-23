@@ -1,6 +1,6 @@
 (defproject bright_paper_werewolves "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "clojurescript blog client, spa"
+  :url "https://github.com/ECAllen/bright_paper_werewolves"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
@@ -18,7 +18,7 @@
                  [org.clojure/clojurescript "1.7.170" :scope "provided"]
                  [secretary "1.2.3"]
                  [venantius/accountant "0.1.5"]
-                 [cljs-ajax "0.5.1"] 
+                 [cljs-ajax "0.5.1"]
                  [com.cognitect/transit-cljs "0.8.232"]
                  ]
 
@@ -44,7 +44,7 @@
 
   :minify-assets
   {:assets
-    {"resources/public/css/site.min.css" "resources/public/css/site.css"}}
+    {"resources/public/css/tufte.min.css" "resources/public/css/tufte.css"}}
 
   :cljsbuild {:builds {:app {:source-paths ["src/cljs" "src/cljc"]
                              :compiler {:output-to "target/cljsbuild/public/js/app.js"
@@ -72,8 +72,7 @@
                    :figwheel {:http-server-root "public"
                               :server-port 3449
                               :nrepl-port 7002
-                              :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"
-                                                 ]
+                              :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
                               :css-dirs ["resources/public/css"]
                               :ring-handler bright-paper-werewolves.handler/app}
 
