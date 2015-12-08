@@ -12,15 +12,19 @@
 ;; -------------------------
 ;; Globals
 
+;; reagent vars for react
 (def posts (reagent/atom {}))
 (def p (ratom/run! (debug/println "posts: " @posts)))
-(def server "localhost")
+
+;; blog-server info, for now assume static
+(def server "blog.ecallen.com")
 (def port "3000")
 (def userid "ecallen")
 
 ;; -------------------------
 ;;  AJAX
 
+;; error handler for debugging
 (defn error-handler [response]
   (debug/println (str "Error status: " (:status response)))
   (debug/println (str "Status details: " (:status-text response)))
@@ -29,10 +33,6 @@
     (debug/println (str "Parse error: " (:parse response)))
     (debug/println (str "Original Text: " (:original-text response))))
   (debug/println (str "Error response: " response)))
-
-(defn posts-handler [response]
-    (reset! posts {})
-    (swap! posts conj response))
 
 (defn ajax-get [url handler error-handler]
   (ajax/GET url
