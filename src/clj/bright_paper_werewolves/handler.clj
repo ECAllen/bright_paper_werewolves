@@ -10,10 +10,8 @@
 
 (def mount-target
   [:div#app
-   [:h3 "ClojureScript has not been compiled!"]
-   [:p "please run "
-    [:b "lein figwheel"]
-    " in order to start the compiler"]])
+   [:h3 "The eagle has landed"]
+   ])
 
 (def loading-page
   (html

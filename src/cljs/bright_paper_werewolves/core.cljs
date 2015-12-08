@@ -17,8 +17,8 @@
 (def p (ratom/run! (debug/println "posts: " @posts)))
 
 ;; blog-server info, for now assume static
-(def server "blog.ecallen.com")
-(def port "3000")
+(def server "ecallen.com")
+(def port "4010")
 (def userid "ecallen")
 
 ;; -------------------------
