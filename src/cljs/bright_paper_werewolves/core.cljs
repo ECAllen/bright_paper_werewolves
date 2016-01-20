@@ -6,8 +6,8 @@
               [secretary.core :as secretary :include-macros true]
               [accountant.core :as accountant]
               [ajax.core :as ajax]
-              [cognitect.transit :as transit]
-              ))
+              [cognitect.transit :as transit]))
+
 
 ;; -------------------------
 ;; Globals
@@ -34,9 +34,13 @@
     (debug/println (str "Original Text: " (:original-text response))))
   (debug/println (str "Error response: " response)))
 
+(defn posts-handler [response]
+  (reset! posts {})
+  (swap! posts conj response))
+
 (defn ajax-get [url handler error-handler]
   (ajax/GET url
-    {:handler handler
+    {:handler posts-handler
      :error-handler error-handler
      :response-format :transit}))
 
@@ -48,14 +52,14 @@
 
 (defn home-page []
   [:div
-  [:h1 "ECAllen"]
-  (doall (for [k (keys @posts)]
-    ^{:key k}
-    [:section
-      [:h2 (get-in @posts [k :title])]
-      [:p (get-in @posts [k :post-timestamp])]
-      [:p (get-in @posts [k :text])]]
-          ))])
+   [:h1 "ECAllen"]
+   (doall (for [k (keys @posts)]
+           ^{:key k}
+           [:section
+             [:h2 (get-in @posts [k :title])]
+             [:p (get-in @posts [k :post-timestamp])]
+             [:p (get-in @posts [k :text])]]))])
+
 
 (defn current-page []
   [:div [(session/get :current-page)]])
