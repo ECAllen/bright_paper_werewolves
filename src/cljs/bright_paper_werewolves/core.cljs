@@ -20,13 +20,13 @@
 ;; blog-server info, for now assume static
 ;; --------------------------
 ;; Testing
-(def server "localhost")
-(def port "3000")
+;; (def server "localhost")
+;; (def port "3000")
 
 ;; --------------------------
 ;; Production
-;; (def server "ecallen.com")
-;; (def port "4010")
+(def server "ecallen.com")
+(def port "4010")
 
 (def userid "ecallen")
 
