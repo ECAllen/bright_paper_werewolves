@@ -6,6 +6,7 @@
               [secretary.core :as secretary :include-macros true]
               [accountant.core :as accountant]
               [ajax.core :as ajax]
+              [markdown.core :refer [md->html]]
               [cognitect.transit :as transit]))
 
 
@@ -17,8 +18,16 @@
 (def p (ratom/run! (debug/println "posts: " @posts)))
 
 ;; blog-server info, for now assume static
+;; --------------------------
+;; Testing
+;; (def server "localhost")
+;; (def port "3000")
+
+;; --------------------------
+;; Production
 (def server "ecallen.com")
 (def port "4010")
+
 (def userid "ecallen")
 
 ;; -------------------------
@@ -50,15 +59,19 @@
 ;; -------------------------
 ;; Views
 
+(defn markdown-component [content]
+    [:div {:dangerouslySetInnerHTML
+           {:__html (-> content md->html)}}])
+
 (defn home-page []
   [:div
    [:h1 "ECAllen"]
-   (doall (for [k (keys @posts)]
+   (doall (for [k (sort-by :timestamp > (keys @posts))]
            ^{:key k}
            [:section
              [:h2 (get-in @posts [k :title])]
              [:p (get-in @posts [k :post-timestamp])]
-             [:p (get-in @posts [k :text])]]))])
+             [:p (markdown-component (get-in @posts [k :text]))]]))])
 
 
 (defn current-page []

@@ -10,8 +10,8 @@
 
 (def mount-target
   [:div#app
-   [:h3 "The eagle has landed"]
-   ])
+   [:h3 "The eagle has landed"]])
+
 
 (def loading-page
   (html

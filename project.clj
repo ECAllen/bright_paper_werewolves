@@ -19,8 +19,9 @@
                  [secretary "1.2.3"]
                  [venantius/accountant "0.1.5"]
                  [cljs-ajax "0.5.1"]
-                 [com.cognitect/transit-cljs "0.8.232"]
-                 ]
+                 [markdown-clj "0.9.85"]
+                 [com.cognitect/transit-cljs "0.8.232"]]
+
 
   :plugins [[lein-environ "1.0.1"]
             [lein-cljsbuild "1.1.1"]
@@ -80,12 +81,7 @@
 
                    :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
                                               :compiler {:main "bright_paper_werewolves.dev"
-                                                         :source-map true}}
-
-
-                                        }
-
-                               }}
+                                                         :source-map true}}}}}
 
              :uberjar {:hooks [minify-assets.plugin/hooks]
                        :prep-tasks ["compile" ["cljsbuild" "once"]]
