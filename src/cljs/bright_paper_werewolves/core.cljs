@@ -20,13 +20,13 @@
 ;; blog-server info, for now assume static
 ;; --------------------------
 ;; Testing
-;; (def server "localhost")
-;; (def port "3000")
+(def server "localhost")
+(def port "3000")
 
 ;; --------------------------
 ;; Production
-(def server "ecallen.com")
-(def port "4010")
+;; (def server "ecallen.com")
+;; (def port "4010")
 
 (def userid "ecallen")
 
@@ -66,7 +66,7 @@
 (defn home-page []
   [:div
    [:h1 "ECAllen"]
-   (doall (for [k (sort-by :timestamp > (keys @posts))]
+   (doall (for [k (keys (sort-by (comp :post-timestamp second) > @posts))]
            ^{:key k}
            [:section
              [:h2 (get-in @posts [k :title])]
