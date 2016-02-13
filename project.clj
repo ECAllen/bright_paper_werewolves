@@ -23,9 +23,9 @@
                  [com.cognitect/transit-cljs "0.8.232"]]
 
 
-  :plugins [[lein-environ "1.0.1"]
-            [lein-cljsbuild "1.1.1"]
-            [lein-asset-minifier "0.2.2"]]
+  :plugins [[lein-environ "1.0.2"]
+            [lein-cljsbuild "1.1.2"]
+            [lein-asset-minifier "0.2.4"]]
 
   :ring {:handler bright-paper-werewolves.handler/app
          :uberwar-name "bright_paper_werewolves.war"}
@@ -64,7 +64,7 @@
                                   [pjstadig/humane-test-output "0.7.0"]]
 
                    :source-paths ["env/dev/clj"]
-                   :plugins [[lein-figwheel "0.5.0-1"]
+                   :plugins [[lein-figwheel "0.5.0-6"]
                              [org.clojure/clojurescript "1.7.170"]]
 
                    :injections [(require 'pjstadig.humane-test-output)
