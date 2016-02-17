@@ -7,7 +7,8 @@
               [accountant.core :as accountant]
               [ajax.core :as ajax]
               [markdown.core :refer [md->html]]
-              [cognitect.transit :as transit]))
+              [cognitect.transit :as transit]
+              [dommy.core :refer-macros [sel sel1]]))
 
 
 ;; -------------------------
@@ -15,20 +16,26 @@
 
 ;; reagent vars for react
 (def posts (reagent/atom {}))
-(def p (ratom/run! (debug/println "posts: " @posts)))
+; (def p (ratom/run! (debug/println "posts: " @posts)))
 
-;; blog-server info, for now assume static
 ;; --------------------------
 ;; Testing
-;; (def server "localhost")
-;; (def port "3000")
+
+(def server "localhost")
+(def port "3000")
 
 ;; --------------------------
 ;; Production
-(def server "ecallen.com")
-(def port "4010")
+
+; (def server "ecallen.com")
+; (def port "4010")
 
 (def userid "ecallen")
+
+;; --------------------------
+;; Highlight
+
+
 
 ;; -------------------------
 ;;  AJAX
@@ -59,9 +66,21 @@
 ;; -------------------------
 ;; Views
 
+(defn highlight-code [html-node]
+  (let [nodes (sel [:pre :code])]
+    (doall (for [node nodes]
+               (.highlightBlock js/hljs node)))))
+
 (defn markdown-component [content]
-    [:div {:dangerouslySetInnerHTML
-           {:__html (-> content md->html)}}])
+           [(with-meta
+              (fn []
+                [:div {:dangerouslySetInnerHTML
+                       {:__html (-> content md->html)}}])
+              {:component-did-mount
+                (fn [this]
+                  (let [node (reagent/dom-node this)]
+                    (highlight-code node)))})])
+
 
 (defn home-page []
   [:div

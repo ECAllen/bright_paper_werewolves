@@ -12,7 +12,6 @@
   [:div#app
    [:h3 "The eagle has landed"]])
 
-
 (def loading-page
   (html
    [:html
@@ -20,11 +19,14 @@
      [:meta {:charset "utf-8"}]
      [:meta {:name "viewport"
              :content "width=device-width, initial-scale=1"}]
-     (include-css (if (env :dev) "css/tufte.css" "css/tufte.css"))]
+     (include-css
+                (if (env :dev) "css/tufte.css" "css/tufte.min.css")
+                "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/zenburn.min.css")]
     [:body
      mount-target
-     (include-js "js/app.js")]]))
-
+     (include-js
+      "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"
+      "js/app.js")]]))
 
 (defroutes routes
   (GET "/" [] loading-page)

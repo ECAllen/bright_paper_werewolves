@@ -7,25 +7,27 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [ring-server "0.4.0"]
                  [reagent "0.5.1"]
-                 [reagent-forms "0.5.13"]
-                 [reagent-utils "0.1.5"]
+                 [reagent-forms "0.5.16"]
+                 [reagent-utils "0.1.7"]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
-                 [prone "0.8.2"]
+                 [prone "1.0.2"]
                  [compojure "1.4.0"]
                  [hiccup "1.0.5"]
-                 [environ "1.0.1"]
+                 [environ "1.0.2"]
                  [org.clojure/clojurescript "1.7.170" :scope "provided"]
                  [secretary "1.2.3"]
-                 [venantius/accountant "0.1.5"]
-                 [cljs-ajax "0.5.1"]
+                 [venantius/accountant "0.1.6"]
+                 [cljs-ajax "0.5.3"]
                  [markdown-clj "0.9.85"]
-                 [com.cognitect/transit-cljs "0.8.232"]]
+                 [com.cognitect/transit-cljs "0.8.237"]
+                 [prismatic/dommy "1.1.0"]]
+
 
 
   :plugins [[lein-environ "1.0.2"]
             [lein-cljsbuild "1.1.2"]
-            [lein-asset-minifier "0.2.4"]]
+            [lein-asset-minifier "0.2.7"]]
 
   :ring {:handler bright-paper-werewolves.handler/app
          :uberwar-name "bright_paper_werewolves.war"}
@@ -52,16 +54,17 @@
                                         :output-dir "target/cljsbuild/public/js/out"
                                         :asset-path   "js/out"
                                         :optimizations :none
-                                        :pretty-print  true}}}}
+                                        :pretty-print  true
+                                        :externs ["externs/syntax.js"]}}}}
 
   :profiles {:dev {:repl-options {:init-ns bright-paper-werewolves.repl}
 
                    :dependencies [[ring/ring-mock "0.3.0"]
                                   [ring/ring-devel "1.4.0"]
-                                  [lein-figwheel "0.5.0-1"]
+                                  [lein-figwheel "0.5.0-6"]
                                   [org.clojure/tools.nrepl "0.2.12"]
                                   [com.cemerick/piggieback "0.2.1"]
-                                  [pjstadig/humane-test-output "0.7.0"]]
+                                  [pjstadig/humane-test-output "0.7.1"]]
 
                    :source-paths ["env/dev/clj"]
                    :plugins [[lein-figwheel "0.5.0-6"]
