@@ -20,8 +20,9 @@
      [:meta {:name "viewport"
              :content "width=device-width, initial-scale=1"}]
      (include-css
-                (if (env :dev) "css/tufte.css" "css/tufte.min.css")
-                "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/zenburn.min.css")]
+      (if (env :dev) "css/tufte.css" "css/tufte.min.css")
+      "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/zenburn.min.css"
+      "css/site.css")]
     [:body
      mount-target
      (include-js

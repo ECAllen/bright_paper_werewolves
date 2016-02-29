@@ -29,13 +29,7 @@
 
 (def server "ecallen.com")
 (def port "4010")
-
 (def userid "ecallen")
-
-;; --------------------------
-;; Highlight
-
-
 
 ;; -------------------------
 ;;  AJAX
@@ -81,35 +75,59 @@
                   (let [node (reagent/dom-node this)]
                     (highlight-code node)))})])
 
+(defn menu-link [url txt]
+  [:a {:href url :class "menu"} txt])
+
+(defn top-menu []
+    [:ul {:class "menu"}
+     [:li {:class "menu"}
+      (menu-link "/" "Blog")
+      (menu-link "/marginalia" "Marginalia")]])
+
+;; -------------------------
+;; Pages
 
 (defn home-page []
   [:div
-   [:h1 "ECAllen"]
-   (doall (for [k (keys (sort-by (comp :post-timestamp second) > @posts))]
-           ^{:key k}
-           [:section
-             [:h2 (get-in @posts [k :title])]
-             [:p (get-in @posts [k :post-timestamp])]
-             [:p (markdown-component (get-in @posts [k :text]))]]))])
+    [:div {:class "fullwidth"}
+      (top-menu)]
+    [:div
+      [:h1 "ECAllen"]
+      (doall (for [k (keys (sort-by (comp :post-timestamp second) > @posts))]
+               ^{:key k}
+               [:section
+                 [:h2 (get-in @posts [k :title])]
+                 [:p (get-in @posts [k :post-timestamp])]
+                 [:p (markdown-component (get-in @posts [k :text]))]]))]])
 
-
-(defn current-page []
-  [:div [(session/get :current-page)]])
+(defn marginalia-page []
+  [:div
+    (top-menu)
+    [:h1 "links for marginalia pages"]])
 
 ;; -------------------------
 ;; Routes
 
+(defn current-page []
+  [:div [(session/get :current-page)]])
+
 (secretary/defroute "/" []
   (session/put! :current-page #'home-page))
 
+(secretary/defroute "/marginalia" []
+  (session/put! :current-page #'marginalia-page))
+
 ;; -------------------------
 ;; Initialize app
+
 (get-posts)
 
 (defn mount-root []
   (reagent/render [current-page] (.getElementById js/document "app")))
 
 (defn init! []
-  (accountant/configure-navigation!)
+  (accountant/configure-navigation!
+    {:nav-handler (fn [path] (secretary/dispatch! path))
+     :path-exists? (fn [path] (secretary/locate-route path))})
   (accountant/dispatch-current!)
   (mount-root))
