@@ -10,7 +10,7 @@
 
 (def mount-target
   [:div#app
-   [:h3 "The eagle has landed"]])
+   [:h3 "loading..."]])
 
 (def loading-page
   (html
@@ -32,7 +32,6 @@
 (defroutes routes
   (GET "/" [] loading-page)
   (GET "/about" [] loading-page)
-
   (resources "/")
   (not-found "Not Found"))
 

@@ -82,7 +82,7 @@
     [:ul {:class "menu"}
      [:li {:class "menu"}
       (menu-link "/" "Blog")
-      (menu-link "/marginalia" "Marginalia")]])
+      (menu-link "/blog-marg.html" "Marginalia")]])
 
 ;; -------------------------
 ;; Pages
